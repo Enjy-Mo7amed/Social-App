@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@import "@heroui/styles"; 
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+.containerr {
+  @apply w-[95%] sm:w-[95%] md:w-[95%] lg:w-[95%] xl:w-[80%] mx-auto px-4 sm:px-6 lg:px-8 py-20;
+}
+
+.active {
+  @apply bg-[#2E1E14] text-[#FF6900] rounded-xl border border-[#ff6a007e] md:bg-linear-to-r md:from-orange-500 md:to-orange-600 md:text-white md:rounded-full;
+}
+
+
