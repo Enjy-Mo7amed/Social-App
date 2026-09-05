@@ -285,13 +285,13 @@ export default function CardPost({ post }) {
                       <Label className='text-[#060607] dark:text-[#FAF9F9]'>Save Post</Label>
                     </Dropdown.Item>
                     {myId === userId && <>
-                      <Dropdown.Item onAction={() => editPost()} className='flex items-center justify-between gap-3 text-[#060607] dark:text-[#FAF9F9]' id="edit-file" textValue="Edit file">
-                        <span className="text-lg"><MdModeEditOutline /></span>
-                        <Label className='text-[#060607] dark:text-[#FAF9F9]'>Edit Post</Label>
+                      <Dropdown.Item onAction={() => editPost()} className='flex items-center justify-between gap-3 text-black dark:text-[#FAF9F9]' id="edit-file" textValue="Edit file">
+                        <span className="text-lg text-black dark:text-[#FAF9F9]"><MdModeEditOutline /></span>
+                        <Label className='text-black dark:text-[#FAF9F9]'>Edit Post</Label>
                       </Dropdown.Item>
-                      <Dropdown.Item onAction={() => DeleteMutate()} className='flex items-center justify-between gap-3 text-[#060607] dark:text-[#FAF9F9]' id="delete-file" textValue="Delete file" variant="danger">
-                        <span className="text-lg"><MdDelete /></span>
-                        <Label className='text-[#060607] dark:text-[#FAF9F9]'>Delete Post</Label>
+                      <Dropdown.Item onAction={() => DeleteMutate()} className='flex items-center justify-between gap-3 text-black dark:text-[#FAF9F9]' id="delete-file" textValue="Delete file" variant="danger">
+                        <span className="text-lg text-black dark:text-[#FAF9F9]"><MdDelete /></span>
+                        <Label className='text-black dark:text-[#FAF9F9]'>Delete Post</Label>
                       </Dropdown.Item>
                     </>}
                   </Dropdown.Menu>
