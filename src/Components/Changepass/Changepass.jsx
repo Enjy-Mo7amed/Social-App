@@ -80,7 +80,7 @@ export default function Changepass() {
 
     return (
         <>
-            <div className="flex py-[128.5px] items-center justify-center bg-linear-to-r from-slate-400 via-slate-500 to-black">
+            <div className="flex min-h-screen items-center justify-center bg-linear-to-r from-slate-400 via-slate-500 to-black">
                 <div className="relative">
                     <div className="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-lg bg-linear-to-r from-black via-slate-600 to-slate-800 shadow-lg animate-pulse" />
                     <div id="form-container" className="bg-gray-200 p-5 md:p-10 rounded-lg shadow-2xl w-70 md:w-100 relative z-10 transform transition duration-500 ease-in-out">

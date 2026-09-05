@@ -30,6 +30,8 @@ export default function PostDetails() {
     const { myId } = useContext(TokenContext)
     const [isOpen, setIsOpen] = useState(false)
     const [body, setBody] = useState("")
+    const [Likes, setLikes] = useState(false)
+
     const [image, setImage] = useState(null)
 
     // details query
@@ -39,10 +41,9 @@ export default function PostDetails() {
         select: (data) => data?.data?.data?.post,
         enabled: !!id
     })
+
     // console.log(data);
     const userId = data?.user?._id
-
-
 
     // comment query
     const { data: comments, isLoading: commentLoader } = useQuery({
@@ -55,7 +56,7 @@ export default function PostDetails() {
 
 
     // like and unlike mutate
-    const { data: likesData, mutate, error: likeError } = useMutation({
+    const { data: likesData, mutate } = useMutation({
         mutationFn: () => LikePost({ post: data }),
         onSuccess: () => {
             queryClient.invalidateQueries({
@@ -85,6 +86,9 @@ export default function PostDetails() {
             })
             queryClient.invalidateQueries({
                 queryKey: ["getmyposts"]
+            })
+            queryClient.invalidateQueries({
+                queryKey: ["GetSavedBookMarks"]
             })
             {
                 !data?.bookmarked && toast.success('Post have been saved 👍', {
@@ -166,6 +170,7 @@ export default function PostDetails() {
             queryClient.invalidateQueries({
                 queryKey: ['getDetails']
             })
+            setIsOpen(false)
             toast.success('Post have Been Updated successfully', {
                 position: "top-right",
                 autoClose: 1500,
@@ -208,12 +213,20 @@ export default function PostDetails() {
         }
         EditMutate(formData)
     }
+
+    const { data: likesdata } = useQuery({
+        queryKey: ['GEtPostLikes', data?.id],
+        queryFn: () => getPOstLikes({ id: data?.id }),
+        select: (likesdata) => likesdata?.data?.data?.likes,
+    })
+
     if (isLoading) {
         return <Loader />
     }
     if (isError) {
         return <Error apiError={error.message} />
     }
+
 
     return (
         <>
@@ -222,19 +235,19 @@ export default function PostDetails() {
                 <div className="card bg-[#FAF9F9] dark:bg-[#060607] dark:shadow-white/50 h-fit mr-5  w-full lg:w-[70%]  shadow-md">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <Link to={'/profile'}>
-                                <div className=" w-10 h-10"><img className='rounded-full w-full h-full' src={data.user.photo} alt={data.user.name} /></div>
+                            <Link to={`/profile/${data?.user?._id || data?.user?.id}`}>
+                                <div className=" w-10 h-10"><img className='rounded-full w-full h-full' src={data?.user?.photo} alt={data?.user?.name} /></div>
                             </Link>
                             <div className="">
-                                <Link to={'/profile'}>
-                                    <h3 className='font-medium dark:text-[#FAF9F9]'>{data.user.name}</h3>
+                                <Link to={`/profile/${data?.user?._id || data?.user?.id}`}>
+                                    <h3 className='font-medium dark:text-[#FAF9F9]'>{data?.user?.name}</h3>
                                 </Link>
-                                <span className='dark:text-[#FAF9F9]'>{dayjs(data.createdAt).fromNow()}</span>
+                                <span className='dark:text-[#FAF9F9]'>{dayjs(data?.createdAt).fromNow()}</span>
                             </div>
                         </div>
                         <div className="cursor-pointer">
                             <Dropdown>
-                                <Button className=' text-black dark:text-white' aria-label="Menu" variant="secondary">
+                                <Button className='py-1 px-3.5 bg-transparent hover:bg-gray-100 dark:hover:bg-white/20 dark:hover:text-black text-black dark:text-white' aria-label="Menu" variant="secondary">
                                     <BsThreeDots />
                                 </Button>
                                 <Dropdown.Popover>
@@ -267,16 +280,22 @@ export default function PostDetails() {
                             src={data?.image}
                             alt={data?.body} />
                     </figure>}
-                    <div className="dark:text-[#FAF9F9] flex justify-between items-center">
-                        <div onClick={() => mutate()} className="flex items-center gap-1 hover:bg-gray-50 rounded-lg py-1 px-2 cursor-pointer transition">{likesData?.data?.data?.liked ? <AiFillLike /> : <AiOutlineLike />}
-                            {data?.likesCount == 0 ? "" : <span>{data?.likesCount}</span>}
+                    <div className="flex justify-between items-center text-[#060607] dark:text-[#FAF9F9]">
+                        <div className="flex gap-2 items-center">
+                            <div onClick={() => mutate()} className="flex items-center gap-1 hover:bg-[#060607]/10 dark:hover:bg-[#FAF9F9]/10 rounded-lg py-1 px-2 cursor-pointer transition">{likesData?.data?.data?.liked ? <AiFillLike /> : <AiOutlineLike />}
+                                {data?.likesCount == 0 ? "" : <span>{data?.likesCount}</span>}
+                            </div>
+                            <div className="flex items-center gap-1 hover:bg-[#060607]/10 dark:hover:bg-[#FAF9F9]/10 rounded-lg py-1 px-2 cursor-pointer transition"><FaRegComment />
+                                {data?.commentsCount == 0 ? "" : <span>{data?.commentsCount}</span>}
+                            </div>
+                            <div className="flex items-center gap-1 hover:bg-[#060607]/10 dark:hover:bg-[#FAF9F9]/10 rounded-lg py-1 px-2 cursor-pointer transition"><RiShareForwardLine />
+                                {data?.sharesCount == 0 ? "" : <span>{data?.sharesCount}</span>}
+                            </div>
                         </div>
-                        <div className="flex items-center gap-1 hover:bg-gray-50 rounded-lg py-1 px-2 cursor-pointer transition"><FaRegComment />
-                            {data?.commentsCount == 0 ? "" : <span>{data?.commentsCount}</span>}
-                        </div>
-                        <div className="flex items-center gap-1 hover:bg-gray-50 rounded-lg py-1 px-2 cursor-pointer transition"><RiShareForwardLine />
-                            {data?.sharesCount == 0 ? "" : <span>{data?.sharesCount}</span>}
-                        </div>
+                        {data.likesCount == 0 ? "" :
+                            <div onClick={() => setLikes(true)} className='cursor-pointer text-sm p-1 rounded-full bg-blue-700 text-white'>
+                                <AiFillLike color='white' />
+                            </div>}
                     </div>
                     <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
                         <Modal.Backdrop>
@@ -291,23 +310,65 @@ export default function PostDetails() {
                                         </textarea>
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <div className="w-[50%] font-semibold ">
-                                            <label htmlFor="imageCard" className='flex gap-1 cursor-pointer items-center justify-center transition bg-slate-200 hover:bg-slate-300 rounded-full py-1.5'><FaFileImage />Choose img</label>
-                                            <input onChange={(e) => setImage(e.target.files[0])} id='imageCard' type="file" hidden />
-                                        </div>
-                                        <Button onClick={() => handelUpdate()} className="w-[50%]" slot="close">
-                                            {EditPending ? <BiLoaderCircle className='animate-spin' /> : "Edit Post"}
-                                        </Button>
+                                        <button className="bg-[#FAF9F9] flex justify-center w-[50%] dark:bg-[#060607] text-[#060607] dark:text-[#FAF9F9] relative cursor-pointer py-3 text-center font-barlow  text-base uppercase rounded-lg border-solid transition-transform duration-300 ease-in-out group outline-offset-4 focus:outline  focus:outline-black focus:outline-offset-4 overflow-hidden">
+                                            <span className="relative z-20  text-sm md:tex-lg font-bold">
+                                                <label htmlFor="imagePost" className='flex gap-1 cursor-pointer items-center'><FaFileImage />Choose img</label>
+                                                <input onChange={(e) => setImage(e.target.files[0])} id='imagePost' type="file" hidden />
+                                            </span>
+                                            <span className="absolute left-[-75%] top-0 h-full w-[50%] bg-black/20 dark:bg-[#faf9f93b] rotate-12 z-10 blur-lg group-hover:left-[125%] transition-all duration-1000 ease-in-out" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[20%] rounded-tl-lg border-l-2 border-t-2 top-0 left-0" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute group-hover:h-[90%] h-[60%] rounded-tr-lg border-r-2 border-t-2 top-0 right-0" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[60%] group-hover:h-[90%] rounded-bl-lg border-l-2 border-b-2 left-0 bottom-0" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[20%] rounded-br-lg border-r-2 border-b-2 right-0 bottom-0" />
+                                        </button>
+
+                                        <button onClick={() => handelUpdate()} className="w-[50%]  bg-[#FAF9F9] dark:bg-[#060607] text-[#060607] dark:text-[#FAF9F9] relative cursor-pointer py-3 text-center font-barlow  text-base uppercase rounded-lg border-solid transition-transform duration-300 ease-in-out group outline-offset-4 focus:outline  focus:outline-black focus:outline-offset-4 overflow-hidden">
+                                            <span className="relative  flex justify-center z-20 text-sm md:tex-lg font-bold">
+                                                {EditPending ? <BiLoaderCircle className='animate-spin' /> : "Edit Post"}
+                                            </span>
+                                            <span className="absolute left-[-75%] top-0 h-full w-[50%] bg-black/20 dark:bg-[#faf9f93b] rotate-12 z-10 blur-lg group-hover:left-[125%] transition-all duration-1000 ease-in-out" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[20%] rounded-tl-lg border-l-2 border-t-2 top-0 left-0" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute group-hover:h-[90%] h-[60%] rounded-tr-lg border-r-2 border-t-2 top-0 right-0" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[60%] group-hover:h-[90%] rounded-bl-lg border-l-2 border-b-2 left-0 bottom-0" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[20%] rounded-br-lg border-r-2 border-b-2 right-0 bottom-0" />
+                                        </button>
                                     </Modal.Footer>
+                                </Modal.Dialog>
+                            </Modal.Container>
+                        </Modal.Backdrop>
+                    </Modal>
+
+                    <Modal isOpen={Likes} onOpenChange={setLikes}>
+                        <Modal.Backdrop>
+                            <Modal.Container>
+                                <Modal.Dialog className="sm:max-w-90 bg-[#FAF9F9] dark:bg-[#060607] text-[#060607] dark:text-[#FAF9F9]">
+                                    <Modal.CloseTrigger />
+                                    <Modal.Header>
+                                        <Modal.Heading className="text-[#060607] dark:text-[#FAF9F9]">Likes</Modal.Heading>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        {likesdata?.map((like) => <div key={like?.id} className="flex mt-2 items-center gap-3">
+                                            <Link to={`/profile/${like?._id}`}>
+                                                <div className="w-10 h-10">
+                                                    <img className='rounded-full w-full h-full' src={like?.photo} alt={like?.name} />
+                                                </div>
+                                            </Link>
+                                            <div>
+                                                <Link to={`/profile/${like?._id}`}>
+                                                    <h3 className='font-medium text-[#060607] dark:text-[#FAF9F9]'>{like?.name}</h3>
+                                                </Link>
+                                            </div>
+                                        </div>)}
+                                    </Modal.Body>
                                 </Modal.Dialog>
                             </Modal.Container>
                         </Modal.Backdrop>
                     </Modal>
                 </div>
                 {/* comments */}
-                <div className="w-full lg:w-[30%] lg:p-3 dark:shadow-white/50  shadow-md">
-                    {comments?.map((comment) => <Comment key={comment._id} comment={comment} postid={id} />)}
+                <div className="w-full lg:w-[30%] mt-3 lg:mt-0 p-3 dark:shadow-white/50  shadow-md">
                     <CreateComment id={id} />
+                    {comments?.map((comment) => <Comment key={comment._id} comment={comment} postid={id} />)}
                 </div>
             </div>
 

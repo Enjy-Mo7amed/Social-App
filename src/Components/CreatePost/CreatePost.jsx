@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { CreatePostApi } from '../../Api/CreatePost.api';
 import { Slide, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { BiLoaderCircle } from 'react-icons/bi';
 
 
 export default function CreatePost({ photo }) {
@@ -33,7 +34,7 @@ export default function CreatePost({ photo }) {
         return formData
     }
 
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: () => CreatePostApi(handelPost()),
         onSuccess: () => {
             queryClient.invalidateQueries({
@@ -115,13 +116,28 @@ export default function CreatePost({ photo }) {
                                         </div>}
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <div className="w-[50%] font-semibold ">
-                                            <label htmlFor="imagePost" className='flex gap-1 cursor-pointer items-center justify-center transition bg-slate-200 hover:bg-slate-300 rounded-full py-1.5'><FaFileImage />Choose img</label>
-                                            <input ref={imgRef} onChange={handelImage} id='imagePost' type="file" hidden />
-                                        </div>
-                                        <Button onClick={() => mutate()} className="w-[50%]">
-                                            Share Post
-                                        </Button>
+                                        <button className="bg-[#FAF9F9] flex justify-center w-[50%] dark:bg-[#060607] text-[#060607] dark:text-[#FAF9F9] relative cursor-pointer py-3 text-center font-barlow  text-base uppercase rounded-lg border-solid transition-transform duration-300 ease-in-out group outline-offset-4 focus:outline  focus:outline-black focus:outline-offset-4 overflow-hidden">
+                                            <span className="relative z-20  text-sm md:tex-lg font-bold">
+                                                <label htmlFor="imagePost" className='flex gap-1 cursor-pointer items-center'><FaFileImage />Choose img</label>
+                                                <input ref={imgRef} onChange={handelImage} id='imagePost' type="file" hidden />
+                                            </span>
+                                            <span className="absolute left-[-75%] top-0 h-full w-[50%] bg-black/20 dark:bg-[#faf9f93b] rotate-12 z-10 blur-lg group-hover:left-[125%] transition-all duration-1000 ease-in-out" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[20%] rounded-tl-lg border-l-2 border-t-2 top-0 left-0" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute group-hover:h-[90%] h-[60%] rounded-tr-lg border-r-2 border-t-2 top-0 right-0" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[60%] group-hover:h-[90%] rounded-bl-lg border-l-2 border-b-2 left-0 bottom-0" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[20%] rounded-br-lg border-r-2 border-b-2 right-0 bottom-0" />
+                                        </button>
+
+                                        <button onClick={() => mutate()} className="w-[50%]  bg-[#FAF9F9] dark:bg-[#060607] text-[#060607] dark:text-[#FAF9F9] relative cursor-pointer py-3 text-center font-barlow  text-base uppercase rounded-lg border-solid transition-transform duration-300 ease-in-out group outline-offset-4 focus:outline  focus:outline-black focus:outline-offset-4 overflow-hidden">
+                                            <span className="relative flex justify-center z-20 text-sm md:tex-lg font-bold">
+                                                {isPending ? <BiLoaderCircle className='animate-spin' /> : "Share Post"}
+                                            </span>
+                                            <span className="absolute left-[-75%] top-0 h-full w-[50%] bg-black/20 dark:bg-[#faf9f93b] rotate-12 z-10 blur-lg group-hover:left-[125%] transition-all duration-1000 ease-in-out" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[20%] rounded-tl-lg border-l-2 border-t-2 top-0 left-0" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute group-hover:h-[90%] h-[60%] rounded-tr-lg border-r-2 border-t-2 top-0 right-0" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[60%] group-hover:h-[90%] rounded-bl-lg border-l-2 border-b-2 left-0 bottom-0" />
+                                            <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[20%] rounded-br-lg border-r-2 border-b-2 right-0 bottom-0" />
+                                        </button>
                                     </Modal.Footer>
                                 </Modal.Dialog>
                             </Modal.Container>

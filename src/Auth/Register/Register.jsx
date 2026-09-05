@@ -87,10 +87,10 @@ export default function Register() {
 
   return (
     <>
-      <div className="py-10 flex items-center justify-center bg-linear-to-r from-slate-400 via-slate-500 to-black">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-r from-slate-400 via-slate-500 to-black">
         <div className="relative ">
           <div className="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-lg bg-linear-to-r from-black via-slate-600 to-slate-800 shadow-lg animate-pulse" />
-          <div id="form-container" className=" bg-gray-200 p-2 sm:p-7  rounded-lg shadow-2xl relative z-10 transform transition duration-500 ease-in-out">
+          <div id="form-container" className=" bg-gray-200 p-2.5 md:p-7  rounded-lg shadow-2xl relative z-10 transform transition duration-500 ease-in-out">
             <h2 id="form-title" className="text-center text-3xl font-bold mb-10 text-gray-800">Signup</h2>
             <form className='space-y-5' onSubmit={handleSubmit(submiting)}>
               <div className="flex w-75 md:w-137.5 flex-col gap-4">
@@ -127,8 +127,8 @@ export default function Register() {
                   </div>
                   <div className="flex flex-col gap-1">
                     <Label htmlFor="input-type-Gender" className='dark:text-black'>Gender</Label>
-                    <select {...register('gender')} className='dark:bg-white w-full h-12 border border-gray-800 px-3 rounded-lgbg-white p-1.5 rounded-xl shadow-sm' id="input-type-Gender">
-                      <option disabled value="choose a gender">choose a gender</option>
+                    <select {...register('gender')} className='dark:bg-white w-full h-12 border border-gray-800 px-3 rounded-lg bg-white p-1.5' id="input-type-Gender">
+                      <option className='text-black' disabled value="choose a gender">choose a gender</option>
                       <option value="male">male</option>
                       <option value="female">female</option>
                     </select>
@@ -156,7 +156,7 @@ export default function Register() {
                   <Button isDisabled={loading} type='submit' className=" w-full h-12 px-8 z-30 py-3 bg-gray-500 rounded-xl text-white relative font-semibold after:-z-20 after:absolute after:h-1 after:w-1 after:bg-red-800 after:left-5 overflow-hidden after:bottom-0 after:translate-y-full after:rounded-md after:hover:scale-[300] after:hover:transition-all after:hover:duration-700 after:transition-all after:duration-700 transition-all duration-700 [text-shadow:3px_5px_2px_#be123c;] hover:[text-shadow:2px_2px_2px_#ddd] text-2xl">{loading ? <FaSpinner className='animate-spin' /> : "Submit"}</Button>
                   <span className="absolute left-[-75%] top-0 h-full w-[50%] bg-black/20 rotate-12 z-10 blur-lg group-hover:left-[125%] transition-all duration-1000 ease-in-out" />
                 </div>
-                <span className='mt-1'>If u have an account <Link to={'/login'} className='text-black font-bold'>Login now</Link>
+                <span className='mt-1 text-black'>If u have an account <Link to={'/login'} className='text-black font-bold'>Login now</Link>
                 </span>
               </div>
             </form>

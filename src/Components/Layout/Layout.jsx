@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Outlet } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from './../Navbar/Navbar';
 import LeftSideBar from "../LeftSideBar/LeftSideBar";
 import { TokenContext } from "../../Context/TokenContext";
@@ -9,6 +9,7 @@ import { getmyprofile } from "../../Api/GetMyProfile.api";
 export default function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const { userToken } = useContext(TokenContext)
+  const location = useLocation()
   const { data: userData } = useQuery({
     queryKey: ['getmyprofile'],
     queryFn: getmyprofile,
@@ -16,12 +17,22 @@ export default function Layout() {
     enabled: !!userToken
   })
 
+  // Auto-close sidebar on route change
+  useEffect(() => {
+    setIsSidebarOpen(false)
+  }, [location.pathname])
+
   return (
     <>
       <Navbar isSidebarOpen={isSidebarOpen} onSidebarToggle={() => setIsSidebarOpen((isOpen) => !isOpen)} />
-      {userToken && <div className="lg:hidden">
-        <LeftSideBar data={userData} isOpen={isSidebarOpen} onOpenChange={setIsSidebarOpen} />
-      </div>}
+      {userToken && (
+        <LeftSideBar
+          data={userData}
+          isOpen={isSidebarOpen}
+          onOpenChange={setIsSidebarOpen}
+          isDrawer={true}
+        />
+      )}
       <div className="min-h-screen pt-16">
         <Outlet context={{ isSidebarOpen, setIsSidebarOpen }} />
       </div>

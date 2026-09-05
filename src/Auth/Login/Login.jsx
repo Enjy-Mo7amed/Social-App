@@ -73,7 +73,7 @@ export default function Login() {
 
   return (
     <>
-      <div className="flex py-[90.5px] items-center justify-center bg-linear-to-r from-slate-400 via-slate-500 to-black">
+      <div className="flex min-h-screen items-center justify-center bg-linear-to-r from-slate-400 via-slate-500 to-black">
         <div className="relative">
           <div className="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-lg bg-linear-to-r from-black via-slate-600 to-slate-800 shadow-lg animate-pulse" />
           <div id="form-container" className="bg-gray-200 p-10 rounded-lg shadow-2xl w-70 md:w-100 relative z-10 transform transition duration-500 ease-in-out">
@@ -98,7 +98,7 @@ export default function Login() {
                 <Button isDisabled={loading} type='submit' className="w-full h-12 px-8 z-30 py-3 bg-gray-500 rounded-xl text-white relative font-semibold after:-z-20 after:absolute after:h-1 after:w-1 after:bg-red-800 after:left-5 overflow-hidden after:bottom-0 after:translate-y-full after:rounded-md after:hover:scale-[300] after:hover:transition-all after:hover:duration-700 after:transition-all after:duration-700 transition-all duration-700 [text-shadow:3px_5px_2px_#be123c;] hover:[text-shadow:2px_2px_2px_#ddd] text-2xl">{loading ? <FaSpinner className='animate-spin' /> : "Login"}</Button>
                 <span className="absolute left-[-75%] top-0 h-full w-[50%] bg-black/20 rotate-12 z-10 blur-lg group-hover:left-[125%] transition-all duration-1000 ease-in-out" />
               </div>
-              <span className='mt-2 text-sm md:text-lg flex flex-wrap justify-center'>If u don't have an account <Link to={'/'} className='text-black font-bold text-sm md:text-lg ml-1'>Register now</Link></span>
+              <span className='mt-2 text-black text-sm md:text-lg flex flex-wrap justify-center'>If u don't have an account <Link to={'/'} className='text-black font-bold text-sm md:text-lg ml-1'>Register now</Link></span>
             </form>
           </div>
         </div>

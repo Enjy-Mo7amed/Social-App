@@ -30,6 +30,7 @@ let router = createBrowserRouter([
       { path: "login", element: <AuthRout><Login /></AuthRout> },
       { path: "home", element: <ProtrctedRout><Home /></ProtrctedRout> },
       { path: "profile", element: <ProtrctedRout><Profile /></ProtrctedRout> },
+      { path: "profile/:id", element: <ProtrctedRout><Profile /></ProtrctedRout> },
       { path: "changepass", element: <ProtrctedRout><Changepass /></ProtrctedRout> },
       { path: "postDetails/:id", element: <ProtrctedRout><PostDetails /></ProtrctedRout> },
       { path: "feeds", element: <ProtrctedRout><Feeds /></ProtrctedRout> },
