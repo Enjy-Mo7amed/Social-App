@@ -274,7 +274,7 @@ export default function Profile() {
           </div>
 
           {/* Name + action buttons */}
-          <div className="text-[#060607] dark:text-[#f7faff]  sm:pt-20 md:pt-4 md:pl-52 pb-4 px-3 flex flex-col md:flex-row items-center md:items-end md:justify-between gap-4 text-center md:text-left">
+          <div className="text-[#060607] dark:text-[#f7faff] mt-12.5 sm:mt-0 sm:pt-20 md:pt-4 md:pl-52 pb-4 px-3 flex flex-col md:flex-row items-center md:items-end md:justify-between gap-4 text-center md:text-left">
             <div>
               <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">
                 {data?.name}

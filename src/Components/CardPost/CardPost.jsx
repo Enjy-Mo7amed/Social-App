@@ -266,9 +266,9 @@ export default function CardPost({ post }) {
               </Link>
               <div>
                 <Link to={`/profile/${post?.user?._id}`}>
-                  <h3 className='font-medium text-[#060607] dark:text-[#FAF9F9]'>{post.user.name}</h3>
+                  <h3 className='font-medium text-black dark:text-[#FAF9F9]'>{post.user.name}</h3>
                 </Link>
-                <span className='text-[#060607]/70 dark:text-[#FAF9F9]/70'>{dayjs(post.createdAt).fromNow()}</span>
+                <span className='text-black/50 dark:text-[#FAF9F9]/70'>{dayjs(post.createdAt).fromNow()}</span>
               </div>
             </div>
             <div className="cursor-pointer">
@@ -301,7 +301,7 @@ export default function CardPost({ post }) {
           </div>
         </div>
         <Link to={`/PostDetails/${post?.id}`}>
-          {post.body && <h4 className="card-title px-3 mb-2 text-[#060607] dark:text-[#FAF9F9]">{post.body}</h4>}
+          {post.body && <h4 className="card-title px-3 mb-2 text-black dark:text-[#FAF9F9]">{post.body}</h4>}
           {post.image && <figure>
             <img className='w-full' src={post.image} alt={post.body} />
           </figure>}

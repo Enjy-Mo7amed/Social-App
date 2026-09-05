@@ -212,7 +212,7 @@ const likesCount = comment?.likes?.length || 0
                             <div className="flex items-center justify-between">
                                 <div className="">
                                     <Link to={`/profile/${comment?.commentCreator?._id}`}>
-                                        <h3 className='font-semibold text-sm dark:text-white hover:underline'>{comment.commentCreator.name}</h3>
+                                        <h3 className='font-semibold text-sm text-black dark:text-white hover:underline'>{comment.commentCreator.name}</h3>
                                     </Link>
                                     <span className='text-xs text-gray-500'>{dayjs(comment.createdAt).fromNow()}</span>
                                 </div>
@@ -224,12 +224,12 @@ const likesCount = comment?.likes?.length || 0
                                             </Button>
                                             <Dropdown.Popover className={' mr-13'}>
                                                 <Dropdown.Menu>
-                                                    <Dropdown.Item onAction={() => editComment()} className='dark:text-[#FAF9F9] flex items-center justify-between gap-3' id="edit-file" textValue="Edit file">
-                                                        <span className="text-lg"><MdModeEditOutline /></span>
+                                                    <Dropdown.Item onAction={() => editComment()} className='dark:text-[#FAF9F9] text-black flex items-center justify-between gap-3' id="edit-file" textValue="Edit file">
+                                                        <span className="text-lg dark:text-[#FAF9F9] text-black"><MdModeEditOutline /></span>
                                                         <Label>Edit Comment</Label>
                                                     </Dropdown.Item>
-                                                    <Dropdown.Item onAction={() => DeleteMutate()} className='dark:text-[#FAF9F9] flex items-center justify-between gap-3' id="delete-file" textValue="Delete file" variant="danger">
-                                                        <span className="text-lg"><MdDelete /></span>
+                                                    <Dropdown.Item onAction={() => DeleteMutate()} className='dark:text-[#FAF9F9] text-black flex items-center justify-between gap-3' id="delete-file" textValue="Delete file" variant="danger">
+                                                        <span className="text-lg text-black dark:text-[#FAF9F9]"><MdDelete /></span>
                                                         <Label className=' text-black dark:text-[#FAF9F9]'>Delete Comment</Label>
                                                     </Dropdown.Item>
                                                 </Dropdown.Menu>

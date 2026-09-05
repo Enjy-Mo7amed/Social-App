@@ -240,9 +240,9 @@ export default function PostDetails() {
                             </Link>
                             <div className="">
                                 <Link to={`/profile/${data?.user?._id || data?.user?.id}`}>
-                                    <h3 className='font-medium dark:text-[#FAF9F9]'>{data?.user?.name}</h3>
+                                    <h3 className='font-medium text-black dark:text-[#FAF9F9]'>{data?.user?.name}</h3>
                                 </Link>
-                                <span className='dark:text-[#FAF9F9]'>{dayjs(data?.createdAt).fromNow()}</span>
+                                <span className='text-black/50 dark:text-[#FAF9F9]'>{dayjs(data?.createdAt).fromNow()}</span>
                             </div>
                         </div>
                         <div className="cursor-pointer">
@@ -253,7 +253,7 @@ export default function PostDetails() {
                                 <Dropdown.Popover>
                                     <Dropdown.Menu>
                                         <Dropdown.Item className='flex items-center justify-between gap-3' onAction={() => bookmarkMutate()} id="Save Post" textValue="Save Post">
-                                            <div className="text-lg dark:text-[#FAF9F9]">
+                                            <div className="text-lg text-black dark:text-[#FAF9F9]">
                                                 {data?.bookmarked ? <FaBookmark /> : <FaRegBookmark />}
                                             </div>
                                             <Label>Save Post</Label>
@@ -273,7 +273,7 @@ export default function PostDetails() {
                             </Dropdown>
                         </div>
                     </div>
-                    {data?.body && <h4 className="card-title dark:text-[#FAF9F9]">{data?.body}</h4>}
+                    {data?.body && <h4 className="card-title text-black dark:text-[#FAF9F9]">{data?.body}</h4>}
                     {data?.image && <figure>
                         <img
                             className='w-full'

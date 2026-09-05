@@ -21,7 +21,7 @@ export default function ReplyItem({ reply, postid, commentid, comment }) {
                     </Link>
                     <div className="">
                         <Link to={`/profile/${reply?.commentCreator?._id}`}>
-                            <h3 className='font-semibold text-sm hover:underline'>{reply?.commentCreator?.name}</h3>
+                            <h3 className='font-semibold text-black dark:text-white text-sm hover:underline'>{reply?.commentCreator?.name}</h3>
                         </Link>
                         <span className='text-xs text-gray-400'>{dayjs(reply?.createdAt).fromNow()}</span>
                     </div>

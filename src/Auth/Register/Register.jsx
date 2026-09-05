@@ -87,13 +87,13 @@ export default function Register() {
 
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-r from-slate-400 via-slate-500 to-black">
-        <div className="relative ">
+      <div className="min-h-screen py-10 flex items-center justify-center bg-linear-to-r from-slate-400 via-slate-500 to-black">
+        <div className="relative  w-[95%] sm:w-[60%] md:w-[40%]">
           <div className="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-lg bg-linear-to-r from-black via-slate-600 to-slate-800 shadow-lg animate-pulse" />
           <div id="form-container" className=" bg-gray-200 p-2.5 md:p-7  rounded-lg shadow-2xl relative z-10 transform transition duration-500 ease-in-out">
             <h2 id="form-title" className="text-center text-3xl font-bold mb-10 text-gray-800">Signup</h2>
             <form className='space-y-5' onSubmit={handleSubmit(submiting)}>
-              <div className="flex w-75 md:w-137.5 flex-col gap-4">
+              <div className="flex w-full flex-col gap-4">
 
                 {/* ///////////////////////////////name//////////////////////////// */}
                 <div className="flex flex-col gap-1">
