@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { Alert, Input, Label } from "@heroui/react";
+import { useState } from 'react'
+import {Input, Label } from "@heroui/react";
 import { Button } from '@heroui/react';
 import { useForm } from 'react-hook-form';
-import z, { email, object } from 'zod';
+import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
 import ErrorMsg from '../../Components/ErrorMsg/ErrorMsg';
@@ -51,7 +51,7 @@ export default function Register() {
     resolver: zodResolver(schema),
     mode: "all"
   })
-  let { register, handleSubmit, formState, watch } = form
+  const { register, handleSubmit, formState, watch } = form
   const passValue = watch("password")
   const repassValue = watch("rePassword")
 
@@ -67,14 +67,11 @@ export default function Register() {
         icon: "success",
       }).then((result) => {
         if (result.isConfirmed) {
-          setTimeout(() => {
             navigate('/login')
-          }, 2000);
         }
       });
 
     } catch (error) {
-      console.log(error);
       Swal.fire({
         title: "failed",
         text: error.response.data.message,
@@ -87,6 +84,7 @@ export default function Register() {
 
   return (
     <>
+      <title>Register</title>
       <div className="min-h-screen py-10 flex items-center justify-center bg-linear-to-r from-slate-400 via-slate-500 to-black">
         <div className="relative  w-[95%] sm:w-[60%] md:w-[40%]">
           <div className="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-lg bg-linear-to-r from-black via-slate-600 to-slate-800 shadow-lg animate-pulse" />
@@ -117,25 +115,23 @@ export default function Register() {
                   <ErrorMsg error={formState.errors.email} />
                 </div>
 
-                {/* ///////////////////////////////date & gender//////////////////////////// */}
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
+                {/* ///////////////////////////////date//////////////////////////// */}
                   <div className="flex flex-col gap-1">
                     <Label htmlFor="input-type-date" className='dark:text-black'>Date of Birth</Label>
-                    <Input {...register('dateOfBirth')} className="dark:bg-white w-full h-12 border border-gray-800 px-3 rounded-lg" id="input-type-date" placeholder="Date of Birth" type="date" />
+                    <Input {...register('dateOfBirth')} className="dark:bg-white placeholder:text-gray-500 w-full h-12 border border-gray-800 px-3 rounded-lg" id="input-type-date" placeholder="Date of Birth" type="date" />
                     <ErrorMsg error={formState.errors.dateOfBirth} />
-
                   </div>
+
+                {/* ///////////////////////////////gender//////////////////////////// */}
                   <div className="flex flex-col gap-1">
                     <Label htmlFor="input-type-Gender" className='dark:text-black'>Gender</Label>
-                    <select {...register('gender')} className='dark:bg-white w-full h-12 border border-gray-800 px-3 rounded-lg bg-white p-1.5' id="input-type-Gender">
-                      <option className='text-black' disabled value="choose a gender">choose a gender</option>
-                      <option value="male">male</option>
+                    <select {...register('gender')} className='dark:bg-white text-black w-full h-12 border border-gray-800 px-3 rounded-lg bg-white p-1.5' id="input-type-Gender">
+                      <option className='text-black' disabled value="choose a gender"><span className='text-black '>choose a gender</span></option>
+                      <option className='' value="male">male</option>
                       <option value="female">female</option>
                     </select>
                     <ErrorMsg error={formState.errors.gender} />
-
                   </div>
-                </div>
 
                 {/* ///////////////////////////////pass//////////////////////////// */}
                 <div className="flex flex-col gap-1 relative">

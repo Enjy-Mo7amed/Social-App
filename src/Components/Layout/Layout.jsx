@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from './../Navbar/Navbar';
 import LeftSideBar from "../LeftSideBar/LeftSideBar";
 import { TokenContext } from "../../Context/TokenContext";
 import { useQuery } from "@tanstack/react-query";
 import { getmyprofile } from "../../Api/GetMyProfile.api";
+import ScrollToTop from "../ScrollToTop/ScrollToTop";
 
 export default function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -17,13 +18,13 @@ export default function Layout() {
     enabled: !!userToken
   })
 
-  // Auto-close sidebar on route change
   useEffect(() => {
     setIsSidebarOpen(false)
   }, [location.pathname])
 
   return (
     <>
+    <ScrollToTop />
       <Navbar isSidebarOpen={isSidebarOpen} onSidebarToggle={() => setIsSidebarOpen((isOpen) => !isOpen)} />
       {userToken && (
         <LeftSideBar

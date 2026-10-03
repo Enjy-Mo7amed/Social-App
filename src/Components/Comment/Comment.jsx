@@ -1,9 +1,9 @@
 import dayjs from 'dayjs'
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { getCommentrep } from '../../Api/GetCommentRep.api'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { BiDislike, BiLoaderCircle, BiSolidDislike } from 'react-icons/bi'
+import { BiLoaderCircle } from 'react-icons/bi'
 import { AiFillLike, AiOutlineLike } from 'react-icons/ai'
 import CreateReply from '../CreateReply/CreateReply'
 import ReplyItem from './ReplyItem'
@@ -18,8 +18,6 @@ import { FaFileImage } from 'react-icons/fa'
 import { TokenContext } from '../../Context/TokenContext'
 import { LikeComment } from '../../Api/LikeComment.api'
 
-
-
 export default function Comment({ comment, postid }) {
     dayjs.extend(relativeTime)
     const [showReplies, setShowReplies] = useState(false)
@@ -31,15 +29,12 @@ export default function Comment({ comment, postid }) {
     const [isOpen, setIsOpen] = useState(false)
     const queryClient = useQueryClient()
 
-
-
     const { data: replies, isLoading } = useQuery({
         queryKey: ["getCommentrep", postid, comment._id],
         queryFn: () => getCommentrep({ postid, commentid: comment?._id }),
         select: (replies) => replies?.data?.data?.replies,
         enabled: !!comment?._id && !!postid
     })
-    // console.log(replies);
 
     // delete mutation
     const { mutate: DeleteMutate } = useMutation({
@@ -89,7 +84,6 @@ export default function Comment({ comment, postid }) {
             });
         }
     })
-
 
     // Update mutation
     function editComment() {
@@ -157,7 +151,7 @@ export default function Comment({ comment, postid }) {
     }
 
     //like and unlike 
-    const {  mutate } = useMutation({
+    const { mutate } = useMutation({
         mutationFn: () => LikeComment({ postid, commentid: comment?._id }),
         onSuccess: () => {
             queryClient.invalidateQueries({
@@ -190,9 +184,9 @@ export default function Comment({ comment, postid }) {
             });
         }
     })
-    // console.log(data?.data?.data?.liked);
-const isLiked = comment?.likes?.some((like) => (like?._id || like?.id) === myId)
-const likesCount = comment?.likes?.length || 0    
+
+    const isLiked = comment?.likes?.some((like) => ( like) === myId)
+    const likesCount = comment?.likes?.length || 0
 
     return (
         <>
@@ -248,8 +242,8 @@ const likesCount = comment?.likes?.length || 0
                             </div>
                             <div className="flex gap-3 mt-3 items-center">
                                 <div onClick={() => mutate()} className="flex items-center mt-2 text-gray-500 dark:text-white mr-3 cursor-pointer">
-                                    { isLiked ? <AiFillLike /> : <AiOutlineLike />}
-                                    {likesCount  == 0 ? "" : likesCount}
+                                    {isLiked ? <AiFillLike className='dark:text-white text-black' /> : <AiOutlineLike />}
+                                    {likesCount !== 0 && <span>{likesCount}</span>}
                                 </div>
                                 <span onClick={() => setShowrep(!showrep)} className='text-gray-500  dark:text-white text-sm hover:underline cursor-pointer'>Reply</span>
                             </div>

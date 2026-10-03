@@ -1,4 +1,3 @@
-import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import CardPost from '../CardPost/CardPost';
 import { getmyprofile } from '../../Api/GetMyProfile.api';
@@ -14,7 +13,6 @@ export default function Feeds() {
     queryFn: () => getFeeds(),
     select: (data) => data?.data?.data?.posts
   })
-  console.log(data);
 
   const { data: userData } = useQuery({
     queryKey: ['getmyprofile'],
@@ -31,6 +29,7 @@ export default function Feeds() {
 
   return (
     <>
+      <title>My Feeds</title>
       <div className="bg-[#f7faff] dark:bg-[#060607] flex flex-col justify-center gap-3 lg:flex-row lg:gap-10">
         <div className="hidden lg:w-[25%] self-start lg:sticky lg:top-16 lg:block">
           <LeftSideBar data={userData} />

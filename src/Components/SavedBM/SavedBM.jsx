@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import React from 'react'
 import { getSavedBM } from '../../Api/GetSavedBM.api'
 import CardPost from '../CardPost/CardPost';
 import { getmyprofile } from '../../Api/GetMyProfile.api';
@@ -14,7 +13,6 @@ export default function SavedBM() {
     queryFn: () => getSavedBM(),
     select: (data) => data?.data?.data?.bookmarks
   })
-  // console.log(data);
 
   const { data: userData } = useQuery({
     queryKey: ['getmyprofile'],
@@ -31,6 +29,8 @@ export default function SavedBM() {
 
   return (
     <>
+      <title>Saved Bookmarks</title>
+
       <div className="bg-[#f7faff] dark:bg-[#060607] flex flex-col justify-center gap-3 lg:flex-row lg:gap-10">
         <div className="hidden lg:w-[25%] self-start lg:sticky lg:top-16 lg:block">
           <LeftSideBar data={userData} />

@@ -1,6 +1,6 @@
 import { Avatar, Input } from '@heroui/react'
-import React, { useRef, useState } from 'react'
-import { Button, Modal } from "@heroui/react";
+import { useRef, useState } from 'react'
+import { Modal } from "@heroui/react";
 import { IoCloseSharp } from "react-icons/io5";
 import { FaFileImage } from 'react-icons/fa';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -91,7 +91,7 @@ export default function CreatePost({ photo }) {
                     </div>
                 </Link>
                 <div className="w-full">
-                    <Input onClick={() => setIsOpen(true)} aria-label="Name" className="w-full cursor-pointer focus:ring-0 focus:outline-0" placeholder="What's on your mind, ?" readOnly />
+                    <Input onClick={() => setIsOpen(true)} aria-label="Name" className="w-full  dark:bg-black shadow-sm dark:shadow-white bg-white cursor-pointer focus:ring-0 focus:outline-0" placeholder="What's on your mind, ?" readOnly />
                 </div>
 
                 {/* modaaaaaaaaaaaaaaaal */}

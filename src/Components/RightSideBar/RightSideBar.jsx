@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getSuggestion } from '../../Api/GetSuggest.api'
 import { IoCloseOutline } from 'react-icons/io5';
@@ -63,7 +63,8 @@ export default function RightSideBar() {
       {isLoading ? <Loader /> : <>
         <div className="dark:shadow-white/25 bg-[#FAF9F9] dark:bg-[#060607] p-5 rounded-2xl shadow-xl">
           <div className="flex justify-between items-center mb-5">
-            <h2 className="text-lg font-semibold text-[#060607] dark:text-[#FAF9F9]">Suggested followers</h2>
+            <Link to={"/Suggestedfollowers"}> <h2 className="text-lg font-semibold text-[#060607] dark:text-[#FAF9F9]">Suggested followers</h2>
+            </Link>
           </div>
 
           <div className="space-y-4">

@@ -1,15 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { FaBookmark } from 'react-icons/fa';
 import { MdOutlineFeed } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom'
-import { TbLogout } from "react-icons/tb";
+import { TbLogout, TbPassword } from "react-icons/tb";
 import { TokenContext } from '../../Context/TokenContext';
 import { BsHouseDoor } from 'react-icons/bs';
 import { SlUserFollow } from "react-icons/sl";
 
 export default function LeftSideBar({ isOpen, onOpenChange, data, isDrawer = false }) {
-    // console.log(data);
-    let { userToken, setUserToken } = useContext(TokenContext)
+    const { userToken, setUserToken } = useContext(TokenContext)
     const [isDarkMode, setIsDarkMode] = useState(() => {
         const saved = localStorage.getItem('theme')
         if (saved) return saved === 'dark'
@@ -18,15 +17,15 @@ export default function LeftSideBar({ isOpen, onOpenChange, data, isDrawer = fal
     )
     useEffect(() => {
         document.body.classList.toggle('dark', isDarkMode)
-        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light')   // 👈 ضيف السطر ده
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light')  
     }, [isDarkMode])
-    let navigate = useNavigate()
+    const navigate = useNavigate()
 
     useEffect(() => {
         document.body.classList.toggle('dark', isDarkMode)
     }, [isDarkMode])
 
-    let signOut = () => {
+    const signOut = () => {
         localStorage.removeItem('userToken')
         setUserToken(null)
         navigate('/login')
@@ -115,6 +114,22 @@ export default function LeftSideBar({ isOpen, onOpenChange, data, isDrawer = fal
                                                 <span className="relative z-20  flex items-center gap-x-2 text-sm  rounded-lg  focus:outline-hidden md:tex-lg font-bold">
                                                     <FaBookmark className='text-2xl' />
                                                     <p className='text-[14px] font-medium'>saved Bookmarks</p>
+                                                </span>
+                                                <span className="absolute left-[-75%] top-0 h-full w-[50%] bg-black/20 dark:bg-[#faf9f93b] rotate-12 z-10 blur-lg group-hover:left-[125%] transition-all duration-1000 ease-in-out" />
+                                                <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[20%] rounded-tl-lg border-l-2 border-t-2 top-0 left-0" />
+                                                <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute group-hover:h-[90%] h-[60%] rounded-tr-lg border-r-2 border-t-2 top-0 right-0" />
+                                                <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[60%] group-hover:h-[90%] rounded-bl-lg border-l-2 border-b-2 left-0 bottom-0" />
+                                                <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[20%] rounded-br-lg border-r-2 border-b-2 right-0 bottom-0" />
+                                            </button>
+                                        </Link>
+
+                                    </li>
+                                    <li>
+                                        <Link onClick={() => onOpenChange?.(false)} to={'/Changepass'} className="">
+                                            <button type="button" className="bg-[#FAF9F9] dark:bg-[#060607] text-[#060607] dark:text-[#FAF9F9] relative cursor-pointer py-3  w-full text-center font-barlow pl-5 text-base uppercase rounded-lg border-solid transition-transform duration-300 ease-in-out group outline-offset-4 focus:outline  focus:outline-black focus:outline-offset-4 overflow-hidden">
+                                                <span className="relative z-20  flex items-center gap-x-2 text-sm  rounded-lg  focus:outline-hidden md:tex-lg font-bold">
+                                                    <TbPassword className='text-2xl' />
+                                                    <p className='text-[14px] font-medium'>Change Password</p>
                                                 </span>
                                                 <span className="absolute left-[-75%] top-0 h-full w-[50%] bg-black/20 dark:bg-[#faf9f93b] rotate-12 z-10 blur-lg group-hover:left-[125%] transition-all duration-1000 ease-in-out" />
                                                 <span className="w-1/2 drop-shadow-3xl transition-all duration-300 block border-[#060607] dark:border-[#FAF9F9] absolute h-[20%] rounded-tl-lg border-l-2 border-t-2 top-0 left-0" />

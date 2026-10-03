@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Input, Label } from "@heroui/react";
 import { Button } from '@heroui/react';
 import { useForm } from 'react-hook-form';
@@ -33,7 +33,7 @@ export default function Changepass() {
         resolver: zodResolver(schema),
         mode: "all"
     })
-    let { register, handleSubmit, formState, watch, reset } = form
+    const { register, handleSubmit, formState, watch, reset } = form
     const passValue = watch("password")
     const newPassValue = watch("newPassword")
 
@@ -80,6 +80,7 @@ export default function Changepass() {
 
     return (
         <>
+            <title>Change Password</title>
             <div className="flex min-h-screen items-center justify-center bg-linear-to-r from-slate-400 via-slate-500 to-black">
                 <div className="relative">
                     <div className="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-lg bg-linear-to-r from-black via-slate-600 to-slate-800 shadow-lg animate-pulse" />

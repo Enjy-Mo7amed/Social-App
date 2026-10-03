@@ -1,4 +1,3 @@
-import React from 'react'
 import { getAllPosts } from '../../Api/GetPosts'
 import CardPost from '../CardPost/CardPost'
 import Loader from '../Loader/Loader'
@@ -16,7 +15,6 @@ export default function Home() {
     queryFn: getAllPosts,
     select: (data) => data?.data?.data?.posts
   })
-  // console.log(data);
 
   const { data: feedsData, isLoading: feedsLoading, isError: feedsIsError } = useQuery({
     queryKey: ['GetFeeds'],

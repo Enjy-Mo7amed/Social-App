@@ -1,5 +1,4 @@
 import { Alert } from '@heroui/react'
-import React from 'react'
 
 export default function ErrorMsg({ error }) {
     return (

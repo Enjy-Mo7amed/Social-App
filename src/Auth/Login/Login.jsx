@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react'
-import { Alert, Input, Label } from "@heroui/react";
+import { useContext, useState } from 'react'
+import {Input, Label } from "@heroui/react";
 import { Button } from '@heroui/react';
 import { useForm } from 'react-hook-form';
-import z, { email, object } from 'zod';
+import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FaEye, FaEyeSlash, FaSpinner } from 'react-icons/fa';
 import ErrorMsg from '../../Components/ErrorMsg/ErrorMsg';
 import axios from 'axios';
-import { useNavigate, Link, data } from 'react-router-dom';
+import { useNavigate, Link} from 'react-router-dom';
 import { TokenContext } from '../../Context/TokenContext';
 import Swal from 'sweetalert2';
 
@@ -32,7 +32,7 @@ export default function Login() {
     resolver: zodResolver(schema),
     mode: "all"
   })
-  let { register, handleSubmit, formState, watch } = form
+  const { register, handleSubmit, formState, watch } = form
   const passValue = watch("password")
 
   ///////////////////////api///////////////////////
@@ -57,7 +57,6 @@ export default function Login() {
       });
 
     } catch (error) {
-      console.log(error);
       Swal.fire({
         title: "failed",
         text: error.response.data.message,
@@ -69,16 +68,17 @@ export default function Login() {
     }
   }
 
-  // min-h-159.25 
 
   return (
     <>
+      <title>Log In</title>
       <div className="flex min-h-screen items-center justify-center bg-linear-to-r from-slate-400 via-slate-500 to-black">
         <div className="relative">
           <div className="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-lg bg-linear-to-r from-black via-slate-600 to-slate-800 shadow-lg animate-pulse" />
           <div id="form-container" className="bg-gray-200 p-10 rounded-lg shadow-2xl w-70 md:w-100 relative z-10 transform transition duration-500 ease-in-out">
             <h2 id="form-title" className="text-center text-3xl font-bold mb-10 text-gray-800">Login</h2>
             <form className='space-y-5' onSubmit={handleSubmit(submiting)}>
+
               {/* ///////////////////////////////email//////////////////////////// */}
               <div className="flex flex-col gap-1">
                 <Label htmlFor="input-type-email" className='dark:text-black'>Email</Label>
