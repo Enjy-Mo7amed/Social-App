@@ -9,7 +9,7 @@ import { TokenContext } from '../../Context/TokenContext'
 import { markAllNotificationsRead } from '../../Api/MarkAllNotificationsRead.api'
 import { markNotificationRead } from '../../Api/MarkNotificationRead.api'
 import { getNotifications } from '../../Api/Getnotifications.api'
-import { getUnreadNotificationsCount } from '../../Api/Getunreadnotificationscount.api'
+import { getUnreadNotificationsCount } from '../../Api/GetUnreadNotificationsCount.api'
 
 dayjs.extend(relativeTime)
 
