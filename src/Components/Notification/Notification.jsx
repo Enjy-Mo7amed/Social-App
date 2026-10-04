@@ -8,7 +8,7 @@ import { Slide, toast } from 'react-toastify'
 import { TokenContext } from '../../Context/TokenContext'
 import { markAllNotificationsRead } from '../../Api/MarkAllNotificationsRead.api'
 import { markNotificationRead } from '../../Api/MarkNotificationRead.api'
-import { getNotifications } from '../../Api/GetNotifications.api'
+import { getNotifications } from '../../Api/Getnotifications.api'
 import { getUnreadNotificationsCount } from '../../Api/Getunreadnotificationscount.api'
 
 dayjs.extend(relativeTime)
