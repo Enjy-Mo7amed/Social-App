@@ -61,13 +61,6 @@ export default function SharedPostEmbed({ original }) {
                     </div>
                 )}
             </Link>
-
-            {/* counts */}
-            <div className="flex items-center gap-4 px-3 py-2 text-xs text-black/50 dark:text-[#FAF9F9]/60 border-t border-[#060607]/10 dark:border-[#FAF9F9]/10">
-                <span className="flex items-center gap-1"><AiFillLike /> {original?.likesCount || 0}</span>
-                <span className="flex items-center gap-1"><FaRegComment /> {original?.commentsCount || 0}</span>
-                <span className="flex items-center gap-1"><RiShareForwardLine /> {original?.sharesCount || 0}</span>
-            </div>
         </div>
     )
 }

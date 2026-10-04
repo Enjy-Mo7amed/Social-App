@@ -15,7 +15,7 @@ export default function Login() {
   const [showpass, setShowpass] = useState(false)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
-  let { setUserToken, setMyId } = useContext(TokenContext)
+  const { setUserToken, setMyId } = useContext(TokenContext)
 
   ///////////////////////validation///////////////////////
   const schema = z.object({
@@ -40,7 +40,7 @@ export default function Login() {
   async function submiting(values) {
     try {
       setLoading(true)
-      let { data } = await axios.post(`https://route-posts.routemisr.com/users/signin`, values)
+      const { data } = await axios.post(`https://route-posts.routemisr.com/users/signin`, values)
       setUserToken(data.data.token)
       localStorage.setItem('userToken', data.data.token)
       setMyId(data?.data?.user?._id)

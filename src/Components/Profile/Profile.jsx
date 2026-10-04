@@ -54,7 +54,6 @@ export default function Profile() {
     queryFn: () => (id ? getUserProfile({ id }) : getmyprofile()),
     select: (data) => data?.data?.data?.user
   })
-  console.log(data)
 
   const currentPhoto = isPhotoDeleted ? '' : data?.photo
   const isMyProfile = !id || (!!myId && (id === myId || data?._id === myId || data?.id === myId))
@@ -200,7 +199,7 @@ export default function Profile() {
     }
   })
 
-  // ===== دالة الحذف =====
+  // ===== delete=====
   function handleDeletePhoto() {
     setIsPhotoDeleted(true)
 

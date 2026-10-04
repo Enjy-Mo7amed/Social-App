@@ -21,7 +21,7 @@ import SavedBM from "./Components/SavedBM/SavedBM";
 import Suggestedfollowers from "./Components/Suggestedfollowers/Suggestedfollowers";
 
 const query = new QueryClient()
-let router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "",
     element: <Layout />,

@@ -59,7 +59,7 @@ export default function Register() {
   async function submiting(values) {
     try {
       setLoading(true)
-      let { data } = await axios.post(`https://route-posts.routemisr.com/users/signup`, values)
+      const { data } = await axios.post(`https://route-posts.routemisr.com/users/signup`, values)
 
       Swal.fire({
         title: "successfully",

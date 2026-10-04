@@ -23,7 +23,6 @@ export default function CreateReply({ postid, commentid, onSuccessReply }) {
   
   const { register, handleSubmit, reset, watch, setValue } = form
   
-  // مراقبة الصورة المختارة لعرض المعاينة
   const selectedImage = watch('image')
   const previewUrl = selectedImage && selectedImage[0] ? URL.createObjectURL(selectedImage[0]) : null
 
@@ -88,14 +87,12 @@ export default function CreateReply({ postid, commentid, onSuccessReply }) {
     mutate(formData)
   }
 
-  // دالة لإلغاء تحديد الصورة
   const removeImage = () => {
     setValue('image', null)
   }
 
   return (
     <div className="w-full mt-2">
-      {/* معاينة الصورة المختارة قبل الإرسال */}
       {previewUrl && (
         <div className="relative inline-block mb-2">
           <img 

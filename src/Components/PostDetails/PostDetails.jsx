@@ -36,7 +36,6 @@ export default function PostDetails() {
     const [Likes, setLikes] = useState(false)
     const [shareOpen, setShareOpen] = useState(false)
     const [shareText, setShareText] = useState("")
-
     const [image, setImage] = useState(null)
 
     // details query
@@ -100,6 +99,7 @@ export default function PostDetails() {
         }
     })
 
+    // bookmark Mutate
     const { mutate: bookmarkMutate } = useMutation({
         mutationFn: () => CreateBookmark({ id: data?.id }),
         onSuccess: () => {
@@ -175,6 +175,7 @@ export default function PostDetails() {
 
         }
     })
+    
     // Update mutation
     function editPost() {
         setIsOpen(true)

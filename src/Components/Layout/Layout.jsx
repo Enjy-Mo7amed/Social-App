@@ -11,6 +11,7 @@ export default function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const { userToken } = useContext(TokenContext)
   const location = useLocation()
+  
   const { data: userData } = useQuery({
     queryKey: ['getmyprofile'],
     queryFn: getmyprofile,

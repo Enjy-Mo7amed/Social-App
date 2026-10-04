@@ -11,6 +11,7 @@ import { FiSearch } from 'react-icons/fi';
 import imgOne from '../../assets/icon.png'
 import imgTwo from '../../assets/icon-2.png'
 import { getAllPosts } from '../../Api/GetPosts';
+import NotificationBell from '../Notification/Notification';
 
 export default function Navbar({ isSidebarOpen, onSidebarToggle }) {
   const { userToken, setUserToken } = useContext(TokenContext)
@@ -18,7 +19,6 @@ export default function Navbar({ isSidebarOpen, onSidebarToggle }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
-
   const menuRef = useRef(null)
   const searchRef = useRef(null)
   const location = useLocation()
@@ -27,7 +27,6 @@ export default function Navbar({ isSidebarOpen, onSidebarToggle }) {
   const routesWithStickySidebar = ['/home', '/bookmarks', '/feeds']
   const hasStickySidebar = routesWithStickySidebar.includes(location.pathname.toLowerCase())
 
-  // 1. جلب بيانات البروفايل الشخصي
   const { data: userData } = useQuery({
     queryKey: ['getmyprofile'],
     queryFn: getmyprofile,
@@ -150,7 +149,7 @@ export default function Navbar({ isSidebarOpen, onSidebarToggle }) {
             </ul>
           ) : (
             <div className="flex items-center gap-3">
-              {/* ===== البحث في الأشخاص ===== */}
+              {/* ===== search==== */}
               <div ref={searchRef} className="relative">
                 <button
                   onClick={() => setIsSearchOpen(!isSearchOpen)}
@@ -181,7 +180,7 @@ export default function Navbar({ isSidebarOpen, onSidebarToggle }) {
                       )}
                     </div>
 
-                    {/* نتائج البحث عن الأشخاص */}
+                    {/* نتائج البحث  */}
                     <div className="mt-3 max-h-60 overflow-y-auto flex flex-col gap-1">
                       {isPostsLoading ? (
                         <p className="text-xs text-center py-4 text-gray-500">Loading users...</p>
@@ -226,7 +225,10 @@ export default function Navbar({ isSidebarOpen, onSidebarToggle }) {
                 )}
               </div>
 
-              {/* ===== قائمة البروفايل ===== */}
+              {/* ===== notifications ===== */}
+              <NotificationBell />
+
+              {/* ===== profile menue ===== */}
               <div ref={menuRef} className="dropdown dropdown-end relative">
                 <button
                   type="button"

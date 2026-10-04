@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-export let TokenContext = createContext()
+export const TokenContext = createContext()
 
 export default function TokenContextProvider({ children }) {
     const [userToken, setUserToken] = useState(localStorage.getItem('userToken'))

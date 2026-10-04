@@ -10,8 +10,6 @@ import { IoCloseSharp } from 'react-icons/io5';
 
 export default function CreateComment({ id }) {
     const queryClient = useQueryClient()
-    
-    // استخدام id فريد للـ input لمنع التداخل مع البوستات الأخرى
     const uniqueInputId = `comment-image-${id}`
 
     const form = useForm({
@@ -23,7 +21,6 @@ export default function CreateComment({ id }) {
     
     const { register, handleSubmit, reset, watch, setValue } = form
 
-    // مراقبة الصورة المختارة لعرض المعاينة
     const selectedImage = watch('image')
     const previewUrl = selectedImage && selectedImage[0] ? URL.createObjectURL(selectedImage[0]) : null
 
@@ -87,14 +84,12 @@ export default function CreateComment({ id }) {
         mutate(formData)
     }
 
-    // دالة لإلغاء تحديد الصورة
     const removeImage = () => {
         setValue('image', null)
     }
 
     return (
         <div className="w-full mt-3">
-            {/* معاينة الصورة المختارة قبل الإرسال */}
             {previewUrl && (
                 <div className="relative inline-block mb-2">
                     <img 

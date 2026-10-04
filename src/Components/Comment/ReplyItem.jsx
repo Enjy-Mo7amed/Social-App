@@ -179,7 +179,7 @@ export default function ReplyItem({ reply, postid, comment, commentid }) {
                         </div>
                     </div>
 
-                    {/* delete reply — لصاحبه بس */}
+                    {/* delete reply */}
                     {myId === userId && (
                         <div className="cursor-pointer shrink-0">
                             <Dropdown>
