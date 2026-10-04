@@ -6,10 +6,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { IoNotificationsOutline } from 'react-icons/io5'
 import { Slide, toast } from 'react-toastify'
 import { TokenContext } from '../../Context/TokenContext'
-import { getNotifications } from '../../Api/GetNotifications.api'
-import { getUnreadNotificationsCount } from '../../Api/GetUnreadNotificationsCount.api'
 import { markAllNotificationsRead } from '../../Api/MarkAllNotificationsRead.api'
 import { markNotificationRead } from '../../Api/MarkNotificationRead.api'
+import { getNotifications } from '../../Api/GetNotifications.api'
+import { getUnreadNotificationsCount } from '../../Api/Getunreadnotificationscount.api'
 
 dayjs.extend(relativeTime)
 
